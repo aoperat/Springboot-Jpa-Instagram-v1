@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 
 @Data
@@ -26,6 +28,7 @@ public class Likes {
 	
 	@ManyToOne
 	@JoinColumn(name="imageId")
+	@JsonBackReference
 	private Image image;
 	
 	@CreationTimestamp

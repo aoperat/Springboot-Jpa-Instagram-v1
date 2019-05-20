@@ -42,6 +42,10 @@ public class Image{
 	@JsonManagedReference
 	@Builder.Default private List<Tag> tags = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "image")
+	@JsonManagedReference
+	@Builder.Default private List<Likes> likes = new ArrayList<>();
+	
 	@CreationTimestamp
 	private LocalDate createDate;
 	@CreationTimestamp

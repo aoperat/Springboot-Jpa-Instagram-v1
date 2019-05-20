@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cos.costagram.model.Follow;
 import com.cos.costagram.model.Image;
 import com.cos.costagram.model.Tag;
 import com.cos.costagram.model.User;
+import com.cos.costagram.repository.FollowRepository;
 import com.cos.costagram.repository.ImageRepository;
 import com.cos.costagram.repository.TagRepository;
 import com.cos.costagram.service.CustomUserDetails;
@@ -32,16 +35,40 @@ public class ImageContoller {
 	@Autowired
 	private TagRepository tagRepository;
 	
+	@Autowired
+	private FollowRepository followRepository;
+	
 	@GetMapping("/home")
 	public String home() {
 		return "home";
 	}
 	
 	@GetMapping("/images")
-	public String image(@AuthenticationPrincipal CustomUserDetails userDetail) {
+	public @ResponseBody List<Image> image(@AuthenticationPrincipal CustomUserDetails userDetail) {
+		System.out.println("Hello EveryOne");
+		//1. User (One)
+		User user = userDetail.getUser();
+		System.out.println("1");
+		System.out.println(user.getId());
+		//2. Follow:User (Many)
+		List<Follow> followList = followRepository.findByFromUserId(user.getId());
+		System.out.println("2");
+		//3. Follow:Image (Many) 4. Follow:Image:Like(count) (One)
+		List<Image> imageList = new ArrayList<>();
+		System.out.println("3");
+		for(Follow f : followList) {
+			List<Image> list = imageRepository.findByUserId(f.getToUser().getId());
+			for(Image i : list) {
+				imageList.add(i);
+			}
+			
+		}
+		System.out.println("4");
+		
 		//System.out.println(userDetail.getUsername());
 		//System.out.println(userDetail.getUser().getBio());
-		return "/images/image";
+		//return "/images/image";
+		return imageList;
 	}
 	
 	@PostMapping("/image/upload")
