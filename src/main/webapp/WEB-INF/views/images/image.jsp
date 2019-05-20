@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -304,6 +305,7 @@ input:focus {
 	<div class="big1">
 		<div class="image-list">
 
+			<c:forEach var="image" items="${imageList}">
 			<!--  start item1  -->
 			<div class="small1-1">
 				<div class="small1-2">
@@ -311,13 +313,13 @@ input:focus {
 						<a href="#"><img src="/image/images/44.jpg"></a>
 					</div>
 					<div class="b2">
-						<a class="b4" href="#">choi_sung</a>
+						<a class="b4" href="#">${image.user.username}</a>
 					</div>
 					<div class="b3">
 						<a href="#"><img src="/image/images/46.png" width="50px"></a>
 					</div>
 					<div class="small1-3">
-						<img src="/image/images/47.jpg" width="600px" height="600px">
+						<img src="${image.filePath}" width="600px" height="600px">
 					</div>
 					<div class="small1-4">
 						<div class="small1-5">
@@ -349,98 +351,8 @@ input:focus {
 
 			</div>
 			<!--  end of item1 -->
-
-			<!--  start item1  -->
-			<div class="small1-1">
-				<div class="small1-2">
-					<div class="b1">
-						<a href="#"><img src="/image/images/44.jpg"></a>
-					</div>
-					<div class="b2">
-						<a class="b4" href="#">choi_sung</a>
-					</div>
-					<div class="b3">
-						<a href="#"><img src="/image/images/46.png" width="50px"></a>
-					</div>
-					<div class="small1-3">
-						<img src="/image/images/47.jpg" width="600px" height="600px">
-					</div>
-					<div class="small1-4">
-						<div class="small1-5">
-							<div class="c__1">
-								<a href="#"><img src="/image/images/49.png" height="30px"></a>
-							</div>
-							<div class="c__2">
-								<a href="#"><img src="/image/images/48.png" height="30px"></a>
-							</div>
-							<div class="c__3">
-								<a href="#"><img src="/image/images/50.png" height="30px"></a>
-							</div>
-						</div>
-						<div class="c__4">
-							<a href="#"><img src="/image/images/52.png" height="30px"></a>
-						</div>
-						<div class="c__5">
-							<a href="#"><img src="/image/images/51.png" height="30px"></a>
-						</div>
-					</div>
-					<div class="d">조회 1,911,147회</div>
-					<div class="e">댓글들...</div>
-					<div class="f">
-						<input class="g" type="text" placeholder="댓글 달기" /><a class="h"
-							href="#">게시</a>
-					</div>
-
-				</div>
-
-			</div>
-			<!--  end of item1 -->
-
-			<!--  start item1  -->
-			<div class="small1-1">
-				<div class="small1-2">
-					<div class="b1">
-						<a href="#"><img src="/image/images/44.jpg"></a>
-					</div>
-					<div class="b2">
-						<a class="b4" href="#">choi_sung</a>
-					</div>
-					<div class="b3">
-						<a href="#"><img src="/image/images/46.png" width="50px"></a>
-					</div>
-					<div class="small1-3">
-						<img src="/image/images/47.jpg" width="600px" height="600px">
-					</div>
-					<div class="small1-4">
-						<div class="small1-5">
-							<div class="c__1">
-								<a href="#"><img src="/image/images/49.png" height="30px"></a>
-							</div>
-							<div class="c__2">
-								<a href="#"><img src="/image/images/48.png" height="30px"></a>
-							</div>
-							<div class="c__3">
-								<a href="#"><img src="/image/images/50.png" height="30px"></a>
-							</div>
-						</div>
-						<div class="c__4">
-							<a href="#"><img src="/image/images/52.png" height="30px"></a>
-						</div>
-						<div class="c__5">
-							<a href="#"><img src="/image/images/51.png" height="30px"></a>
-						</div>
-					</div>
-					<div class="d">조회 1,911,147회</div>
-					<div class="e">댓글들...</div>
-					<div class="f">
-						<input class="g" type="text" placeholder="댓글 달기" /><a class="h"
-							href="#">게시</a>
-					</div>
-
-				</div>
-
-			</div>
-			<!--  end of item1 -->
+			</c:forEach>
+			
 
 		</div>
 		<!-- end of image-list -->

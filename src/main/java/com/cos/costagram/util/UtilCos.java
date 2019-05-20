@@ -6,7 +6,8 @@ import java.util.List;
 public class UtilCos {
 	
 	public static String getResourcePath() {
-		return "E://costagram//costagram//src//main//resources//static//image//";
+		return "C://Workspace//springboot-costagram//springboot-jpa-mysql-security-costagram//src//main//resources//static//image//";
+		//return "E://costagram//costagram//src//main//resources//static//image//";
 	}
 	
 	public static List<String> tagParser(String tags){

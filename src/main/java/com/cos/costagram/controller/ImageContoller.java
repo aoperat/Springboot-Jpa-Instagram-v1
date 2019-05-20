@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +45,7 @@ public class ImageContoller {
 	}
 	
 	@GetMapping("/images")
-	public @ResponseBody List<Image> image(@AuthenticationPrincipal CustomUserDetails userDetail) {
+	public String image(@AuthenticationPrincipal CustomUserDetails userDetail, Model model) {
 		System.out.println("Hello EveryOne");
 		//1. User (One)
 		User user = userDetail.getUser();
@@ -64,11 +65,12 @@ public class ImageContoller {
 			
 		}
 		System.out.println("4");
-		
+		model.addAttribute("imageList", imageList);
+		model.addAttribute("user", user);
 		//System.out.println(userDetail.getUsername());
 		//System.out.println(userDetail.getUser().getBio());
 		//return "/images/image";
-		return imageList;
+		return "/images/image";
 	}
 	
 	@PostMapping("/image/upload")
@@ -78,8 +80,9 @@ public class ImageContoller {
 			String caption, 
 			String location, 
 			String tags) throws IOException {
+		System.out.println("1111");
 		Path filePath = Paths.get(UtilCos.getResourcePath()+file.getOriginalFilename());
-		
+		System.out.println(filePath.toString());
 		Files.write(filePath, file.getBytes());
 		User user = userDetail.getUser();
 

@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,8 +38,9 @@ public class Image{
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="userId")
+	@JsonIgnoreProperties({"password"})
 	private User user;
-	
+	 
 	@OneToMany(mappedBy = "image")
 	@JsonManagedReference
 	@Builder.Default private List<Tag> tags = new ArrayList<>();
