@@ -7,8 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Document</title>
+<<<<<<< HEAD
 <link href="css/style.css" type="text/css" rel="stylesheet">
 <script src="js/jquery-1.12.3.js" type="text/javascript"></script>
+=======
+>>>>>>> ef6f4dd43ce565c99034be08960cb6d65d6a3916
 <style>
 * {
 	padding: 0;
@@ -279,7 +282,11 @@ input:focus {
 	color:#003569;
 }
 
+<<<<<<< HEAD
 .like_people {
+=======
+.like_list {
+>>>>>>> ef6f4dd43ce565c99034be08960cb6d65d6a3916
 	text-decoration:none;
 	color:#003569;
 }
@@ -293,9 +300,12 @@ input[type=button]{
     border: 0px;
     color: white;
 }
+<<<<<<< HEAD
 .like_people {
 	display:inline-block;
 }
+=======
+>>>>>>> ef6f4dd43ce565c99034be08960cb6d65d6a3916
 </style>
 </head>
 
@@ -361,8 +371,11 @@ input[type=button]{
 					</div>
 					<div class="small1-4">
 						<div class="small1-5">
+<<<<<<< HEAD
 							<c:set var="likeId" value="null" />
 							<c:set var="like_check" value="false" />
+=======
+>>>>>>> ef6f4dd43ce565c99034be08960cb6d65d6a3916
 							<c:forEach var="like" items="${image.likes}">
 								<c:if test="${like.user.id eq user.id}">	
 									<c:set var="likeId" value="${like.id}" />
@@ -371,6 +384,7 @@ input[type=button]{
 							</c:forEach>
 							<c:choose>
 								<c:when test="${like_check eq true}">
+<<<<<<< HEAD
 									<div class="c__1 c__1${image.id}">
 										<img src="/image/images/49_like.png" onclick="like(${image.id},${fn:length(image.likes)}, -1)" height="30px" />
 									</div>
@@ -382,6 +396,21 @@ input[type=button]{
 								</c:otherwise>
 							</c:choose>
 								
+=======
+									<div class="c__1">
+										<a href="#" onclick="unlike(${likeId})"><img src="/image/images/49.png" height="30px"></a>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="c__1">
+										<a href="#" onclick="like(${image.id})"><img src="/image/images/49_heart.png" height="30px"></a>
+									</div>		
+								</c:otherwise>
+							</c:choose>
+							
+
+									
+>>>>>>> ef6f4dd43ce565c99034be08960cb6d65d6a3916
 							<div class="c__2">
 								<a href="#"><img src="/image/images/48.png" height="30px"></a>
 							</div>
@@ -396,18 +425,29 @@ input[type=button]{
 							<a href="#"><img src="/image/images/51.png" height="30px"></a>
 						</div>
 					</div>
+<<<<<<< HEAD
 					<div class="d like${image.id}"><b>좋아요${fn:length(image.likes)}개</b></div>
+=======
+					<div class="d"><b>좋아요 ${fn:length(image.likes)}개</b></div>
+>>>>>>> ef6f4dd43ce565c99034be08960cb6d65d6a3916
 					<div class="e">
 						<b>${image.user.username}</b> ${image.caption}<br />
 						<c:forEach var="tag" items="${image.tags}">
 							<span class="tag">#${tag.name}</span>
 						</c:forEach><br />
+<<<<<<< HEAD
 						<b>좋아요 한 사람들</b>
 						<div class="like_people like_people${image.id}">
 						<c:forEach var="like" items="${image.likes}">
 							<a href="#" class="like_people${like.user.username}${image.id}">${like.user.username}</a> 
 						</c:forEach>
 						</div>
+=======
+						<b>좋아요 한 사람들</b> 
+						<c:forEach var="like" items="${image.likes}">
+							<a href="#" class="like_list">${like.user.username}</a> 
+						</c:forEach>
+>>>>>>> ef6f4dd43ce565c99034be08960cb6d65d6a3916
 					</div>
 					<div class="f">
 						<input class="g" type="text" placeholder="댓글 달기" /><a class="h"
@@ -427,7 +467,11 @@ input[type=button]{
 			<div class="small2-1">
 
 				<div>
+<<<<<<< HEAD
 					<a href="#" class="popup"><img src="/image/images/61.png" alt="x" width="50px" height="50px"/></a>
+=======
+					<a href="#"><img src="/image/images/61.png" alt="x" /></a>
+>>>>>>> ef6f4dd43ce565c99034be08960cb6d65d6a3916
 				</div>
 				<div class="ax">
 					<a class="bx2" href="#">${user.username}</a>
@@ -539,6 +583,7 @@ input[type=button]{
 		</div>
 
 	</div>
+<<<<<<< HEAD
 	
 <!-- Modal 시작 -->
 <div id="modal">
@@ -575,6 +620,8 @@ input[type=button]{
 <!-- Modal 끝 --> 
 <!-- wrap 끝 --> 
 <script src="js/script.js" type="text/javascript"></script>
+=======
+>>>>>>> ef6f4dd43ce565c99034be08960cb6d65d6a3916
 	<script>
 		function paging(){
 			if(${maxPage} == ${page}){
@@ -584,6 +631,7 @@ input[type=button]{
 			}	
 		}
 		
+<<<<<<< HEAD
 		function like(imageId, count, check){
 			if(check == -1){
 				fetch("/unlike/image/"+imageId,{
@@ -632,6 +680,27 @@ input[type=button]{
 
 		}
 		
+=======
+		function like(imageId){
+			fetch("/like/image/"+imageId,{
+				method:"POST"	
+			}).then(function(res){
+				return res.text();
+			}).then(function(result){
+				alert(result+imageId);
+			});
+		}
+		
+		function unlike(likeId){
+			fetch("/unlike/like/"+likeId,{
+				method:"POST"
+			}).then(function(res){
+				return res.text();
+			}).then(function(result){
+				alert(result+likeId);
+			});
+		}
+>>>>>>> ef6f4dd43ce565c99034be08960cb6d65d6a3916
 	</script>
 	
 </body>
