@@ -317,9 +317,11 @@ input[type=button]{
 
 			<div class="small3">
 				<a href="#"><img src="/image/images/41.png" height="30px"></a>
+	
 				<div class="a5">
 					<a href="#"><img src="/image/images/42.png" height="30px"></a>
 				</div>
+		
 				<div class="a5">
 					<a href="#"><img src="/image/images/43.png" height="30px"></a>
 				</div>
@@ -332,7 +334,7 @@ input[type=button]{
 	<div class="big1">
 		<div class="image-list">
 
-			<c:forEach var="image" items="${imageList}">
+			<c:forEach var="image" items="${imageList}" varStatus="loop">
 			<!--  start item1  -->
 				<div class="small1-2">
 					<div class="image-header">
@@ -354,9 +356,27 @@ input[type=button]{
 					</div>
 					<div class="small1-4">
 						<div class="small1-5">
-							<div class="c__1">
-								<a href="#"><img src="/image/images/49.png" height="30px"></a>
-							</div>
+							<c:forEach var="like" items="${image.likes}">
+								<c:if test="${like.user.id eq user.id}">	
+									<c:set var="likeId" value="${like.id}" />
+									<c:set var="like_check" value="true" />
+								</c:if>
+							</c:forEach>
+							<c:choose>
+								<c:when test="${like_check eq true}">
+									<div class="c__1">
+										<a href="#" onclick="unlike(${likeId})"><img src="/image/images/49.png" height="30px"></a>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="c__1">
+										<a href="#" onclick="like(${image.id})"><img src="/image/images/49_heart.png" height="30px"></a>
+									</div>		
+								</c:otherwise>
+							</c:choose>
+							
+
+									
 							<div class="c__2">
 								<a href="#"><img src="/image/images/48.png" height="30px"></a>
 							</div>
@@ -518,8 +538,27 @@ input[type=button]{
 				alert("마지막 페이지입니다");
 			}else{
 				location.href="/images?page="+${page+1};	
-			}
-			
+			}	
+		}
+		
+		function like(imageId){
+			fetch("/like/image/"+imageId,{
+				method:"POST"	
+			}).then(function(res){
+				return res.text();
+			}).then(function(result){
+				alert(result+imageId);
+			});
+		}
+		
+		function unlike(likeId){
+			fetch("/unlike/like/"+likeId,{
+				method:"POST"
+			}).then(function(res){
+				return res.text();
+			}).then(function(result){
+				alert(result+likeId);
+			});
 		}
 	</script>
 	

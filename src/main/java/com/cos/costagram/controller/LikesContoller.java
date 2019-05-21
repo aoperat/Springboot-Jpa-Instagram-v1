@@ -25,7 +25,7 @@ public class LikesContoller {
 	private ImageRepository imageRepository;
 	
 	@PostMapping("/like/image/{id}")
-	public @ResponseBody Likes like(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetail) {
+	public @ResponseBody String like(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetail) {
 		//User, Image
 		Optional<Image> imageO = imageRepository.findById(id);
 		Image image = imageO.get();
@@ -34,6 +34,13 @@ public class LikesContoller {
 		like.setImage(image);
 		like.setUser(userDetail.getUser());
 		likesRepository.save(like);
-		return like;
+		return "like ok";
+	}
+	
+	@PostMapping("/unlike/like/{id}")
+	public @ResponseBody String unlike(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetail) {
+		//User, Image
+		likesRepository.deleteById(id);
+		return "unlike ok";
 	}
 }
