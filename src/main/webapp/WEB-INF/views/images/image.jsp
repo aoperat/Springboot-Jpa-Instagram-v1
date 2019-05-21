@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,29 +83,36 @@
 	display: grid;
 }
 
-.small1-1 {
-	display: grid;
-	grid-template-columns: auto 1fr auto;
-	padding: 15px 0;
-	/* background-color: beige; */
-}
-
 .small1-2 {
-	display: grid;
-	grid-template-columns: auto auto;
 	border: 1px solid #999;
-	width: 602px;
-	height: 800px;
 	background-color: white;
+	margin-bottom: 20px;
 }
 
 .small1-3 {
 	grid-column: 1/3 span;
 }
 
+.image-header {
+	display:grid;
+	grid-template-columns: auto auto;
+	justify-content: space-between;
+}
+
 .b1 {
 	margin-left: 15px;
 	margin-top: 10px;
+	display:grid;
+	grid-template-columns: auto auto;
+}
+
+.info {
+	padding-left: 10px;
+}
+
+.location {
+	padding-top:2px;
+	font-size:9px;
 }
 
 .b2 {
@@ -178,7 +187,7 @@
 	position: absolute;
 	margin-left: 560px;
 	margin-top: 10px;
-	color: skyblue;
+	color: #003569;
 	text-decoration: none;
 }
 
@@ -263,6 +272,25 @@ input:focus {
 	color: #999;
 	text-decoration: none;
 }
+
+.tag {
+	color:#003569;
+}
+
+.like_list {
+	text-decoration:none;
+	color:#003569;
+}
+
+
+input[type=button]{
+    height: 31.3px;
+    width: 600px;
+    background-color: #3897F0;
+    border-radius: 5px;
+    border: 0px;
+    color: white;
+}
 </style>
 </head>
 
@@ -304,20 +332,25 @@ input:focus {
 	<div class="big1">
 		<div class="image-list">
 
+			<c:forEach var="image" items="${imageList}">
 			<!--  start item1  -->
-			<div class="small1-1">
 				<div class="small1-2">
-					<div class="b1">
-						<a href="#"><img src="/image/images/44.jpg"></a>
-					</div>
-					<div class="b2">
-						<a class="b4" href="#">choi_sung</a>
-					</div>
-					<div class="b3">
-						<a href="#"><img src="/image/images/46.png" width="50px"></a>
+					<div class="image-header">
+						<div class="b1">
+							<div class="profile">
+								<a href="#"><img src="/image/images/44.jpg"></a>
+							</div>
+							<div class="info">
+								<div class="username"><b>${image.user.username}</b></div>
+								<div class="location">${image.location}</div>
+							</div>
+						</div>
+						<div class="b3">
+							<a href="#"><img src="/image/images/46.png" width="50px"></a>
+						</div>
 					</div>
 					<div class="small1-3">
-						<img src="/image/images/47.jpg" width="600px" height="600px">
+						<img src="${image.filePath}" width="600px" height="500px">
 					</div>
 					<div class="small1-4">
 						<div class="small1-5">
@@ -338,113 +371,29 @@ input:focus {
 							<a href="#"><img src="/image/images/51.png" height="30px"></a>
 						</div>
 					</div>
-					<div class="d">조회 1,911,147회</div>
-					<div class="e">댓글들...</div>
+					<div class="d"><b>좋아요 ${fn:length(image.likes)}개</b></div>
+					<div class="e">
+						<b>${image.user.username}</b> ${image.caption}<br />
+						<c:forEach var="tag" items="${image.tags}">
+							<span class="tag">#${tag.name}</span>
+						</c:forEach><br />
+						<b>좋아요 한 사람들</b> 
+						<c:forEach var="like" items="${image.likes}">
+							<a href="#" class="like_list">${like.user.username}</a> 
+						</c:forEach>
+					</div>
 					<div class="f">
 						<input class="g" type="text" placeholder="댓글 달기" /><a class="h"
 							href="#">게시</a>
 					</div>
 
-				</div>
-
-			</div>
+				</div> 
 			<!--  end of item1 -->
-
-			<!--  start item1  -->
-			<div class="small1-1">
-				<div class="small1-2">
-					<div class="b1">
-						<a href="#"><img src="/image/images/44.jpg"></a>
-					</div>
-					<div class="b2">
-						<a class="b4" href="#">choi_sung</a>
-					</div>
-					<div class="b3">
-						<a href="#"><img src="/image/images/46.png" width="50px"></a>
-					</div>
-					<div class="small1-3">
-						<img src="/image/images/47.jpg" width="600px" height="600px">
-					</div>
-					<div class="small1-4">
-						<div class="small1-5">
-							<div class="c__1">
-								<a href="#"><img src="/image/images/49.png" height="30px"></a>
-							</div>
-							<div class="c__2">
-								<a href="#"><img src="/image/images/48.png" height="30px"></a>
-							</div>
-							<div class="c__3">
-								<a href="#"><img src="/image/images/50.png" height="30px"></a>
-							</div>
-						</div>
-						<div class="c__4">
-							<a href="#"><img src="/image/images/52.png" height="30px"></a>
-						</div>
-						<div class="c__5">
-							<a href="#"><img src="/image/images/51.png" height="30px"></a>
-						</div>
-					</div>
-					<div class="d">조회 1,911,147회</div>
-					<div class="e">댓글들...</div>
-					<div class="f">
-						<input class="g" type="text" placeholder="댓글 달기" /><a class="h"
-							href="#">게시</a>
-					</div>
-
-				</div>
-
-			</div>
-			<!--  end of item1 -->
-
-			<!--  start item1  -->
-			<div class="small1-1">
-				<div class="small1-2">
-					<div class="b1">
-						<a href="#"><img src="/image/images/44.jpg"></a>
-					</div>
-					<div class="b2">
-						<a class="b4" href="#">choi_sung</a>
-					</div>
-					<div class="b3">
-						<a href="#"><img src="/image/images/46.png" width="50px"></a>
-					</div>
-					<div class="small1-3">
-						<img src="/image/images/47.jpg" width="600px" height="600px">
-					</div>
-					<div class="small1-4">
-						<div class="small1-5">
-							<div class="c__1">
-								<a href="#"><img src="/image/images/49.png" height="30px"></a>
-							</div>
-							<div class="c__2">
-								<a href="#"><img src="/image/images/48.png" height="30px"></a>
-							</div>
-							<div class="c__3">
-								<a href="#"><img src="/image/images/50.png" height="30px"></a>
-							</div>
-						</div>
-						<div class="c__4">
-							<a href="#"><img src="/image/images/52.png" height="30px"></a>
-						</div>
-						<div class="c__5">
-							<a href="#"><img src="/image/images/51.png" height="30px"></a>
-						</div>
-					</div>
-					<div class="d">조회 1,911,147회</div>
-					<div class="e">댓글들...</div>
-					<div class="f">
-						<input class="g" type="text" placeholder="댓글 달기" /><a class="h"
-							href="#">게시</a>
-					</div>
-
-				</div>
-
-			</div>
-			<!--  end of item1 -->
+			</c:forEach>
+			
 
 		</div>
 		<!-- end of image-list -->
-
 
 		<!--  START side BAR -->
 		<div>
@@ -454,7 +403,7 @@ input:focus {
 					<a href="#"><img src="/image/images/61.png" alt="x" /></a>
 				</div>
 				<div class="ax">
-					<a class="bx2" href="#">sung-ju</a>
+					<a class="bx2" href="#">${user.username}</a>
 				</div>
 
 
@@ -557,10 +506,23 @@ input:focus {
 
 		</div>
 		<!--  END OF side BAR -->
-
-
+		<div>
+			<input type="button" value="더보기" onClick="paging()"/>
+			<br/><br/>
+		</div>
 
 	</div>
+	<script>
+		function paging(){
+			if(${maxPage} == ${page}){
+				alert("마지막 페이지입니다");
+			}else{
+				location.href="/images?page="+${page+1};	
+			}
+			
+		}
+	</script>
+	
 </body>
 
 </html>

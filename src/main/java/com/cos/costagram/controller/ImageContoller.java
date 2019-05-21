@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,31 +45,49 @@ public class ImageContoller {
 	}
 	
 	@GetMapping("/images")
-	public @ResponseBody List<Image> image(@AuthenticationPrincipal CustomUserDetails userDetail) {
-		System.out.println("Hello EveryOne");
+	public String image(@AuthenticationPrincipal CustomUserDetails userDetail, Model model, @RequestParam(value="page", defaultValue = "1") int page) {
+		
 		//1. User (One)
 		User user = userDetail.getUser();
-		System.out.println("1");
-		System.out.println(user.getId());
-		//2. Follow:User (Many)
+		System.out.println("user.getId() : " +user.getId());
+		
+		//2. User:Follow (List)
 		List<Follow> followList = followRepository.findByFromUserId(user.getId());
-		System.out.println("2");
-		//3. Follow:Image (Many) 4. Follow:Image:Like(count) (One)
+
+		//3. User:Follow:Image (List) 4. Follow:Image:Like(count) (One)
 		List<Image> imageList = new ArrayList<>();
-		System.out.println("3");
+
 		for(Follow f : followList) {
 			List<Image> list = imageRepository.findByUserId(f.getToUser().getId());
 			for(Image i : list) {
 				imageList.add(i);
-			}
-			
+			}	
 		}
-		System.out.println("4");
 		
-		//System.out.println(userDetail.getUsername());
-		//System.out.println(userDetail.getUser().getBio());
-		//return "/images/image";
-		return imageList;
+		//4. 페이징 처리
+		int maxPage = 0;
+		int start = (page-1)*3;
+		int end = page*3;
+		int mod = imageList.size()%3; //1
+		if(mod == 0) {
+			maxPage = imageList.size()/3;
+		}else {
+			maxPage= imageList.size()/3 + 1;
+		}
+		
+		if(page == maxPage) {
+			end = start+mod;
+		}
+
+		imageList = imageList.subList(start, end);
+		
+		//5. Model에 담아주기
+		model.addAttribute("user", user);
+		model.addAttribute("imageList", imageList);
+		model.addAttribute("page", page);
+		model.addAttribute("maxPage", maxPage);
+
+		return "/images/image";
 	}
 	
 	@PostMapping("/image/upload")

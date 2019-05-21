@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cos.costagram.model.Follow;
-import com.cos.costagram.model.User;
 
 public interface FollowRepository extends JpaRepository<Follow, Integer>{
 	
