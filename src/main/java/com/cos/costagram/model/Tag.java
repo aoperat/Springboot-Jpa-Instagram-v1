@@ -26,14 +26,18 @@ public class Tag {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="userId")
+<<<<<<< HEAD
 	@JsonIgnoreProperties({"username", "password", "name", "website", "bio", "email", "phone", "gender", "createDate", "updateDate"})
+=======
+	@JsonIgnoreProperties({"username","password", "name", "website", "bio", "email", "phone", "gender", "createDate", "updateDate"})
+>>>>>>> 0cfe22f36370ad24d853e6968b05cd21a63acc5e
 	private User user;	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="imageId")
 	@JsonBackReference
 	private Image image;
-
+ 
 	@CreationTimestamp
 	private LocalDate createDate;
 	@CreationTimestamp

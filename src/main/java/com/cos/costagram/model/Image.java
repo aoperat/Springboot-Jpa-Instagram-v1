@@ -42,9 +42,13 @@ public class Image{
 	@JoinColumn(name="userId")
 	@JsonIgnoreProperties({"password"})
 	private User user;
+<<<<<<< HEAD
 	
 	//cascade = CascadeType.PERSIST 영속성 전이 (FK를 들고 있지 않아도 save가능) 
 	//@OneToMany(mappedBy = "image", cascade = CascadeType.PERSIST)
+=======
+	 
+>>>>>>> 0cfe22f36370ad24d853e6968b05cd21a63acc5e
 	@OneToMany(mappedBy = "image")
 	@JsonManagedReference
 	@Builder.Default private List<Tag> tags = new ArrayList<>();

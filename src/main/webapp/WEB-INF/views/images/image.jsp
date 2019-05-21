@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+=======
+>>>>>>> 0cfe22f36370ad24d853e6968b05cd21a63acc5e
 <!DOCTYPE html>
 <html>
 <head>
@@ -335,6 +338,7 @@ input[type=button]{
 			<c:forEach var="image" items="${imageList}">
 			<!--  start item1  -->
 				<div class="small1-2">
+<<<<<<< HEAD
 					<div class="image-header">
 						<div class="b1">
 							<div class="profile">
@@ -351,6 +355,19 @@ input[type=button]{
 					</div>
 					<div class="small1-3">
 						<img src="${image.filePath}" width="600px" height="500px">
+=======
+					<div class="b1">
+						<a href="#"><img src="/image/images/44.jpg"></a>
+					</div>
+					<div class="b2">
+						<a class="b4" href="#">${image.user.username}</a>
+					</div>
+					<div class="b3">
+						<a href="#"><img src="/image/images/46.png" width="50px"></a>
+					</div>
+					<div class="small1-3">
+						<img src="${image.filePath}" width="600px" height="600px">
+>>>>>>> 0cfe22f36370ad24d853e6968b05cd21a63acc5e
 					</div>
 					<div class="small1-4">
 						<div class="small1-5">
@@ -370,6 +387,7 @@ input[type=button]{
 						<div class="c__5">
 							<a href="#"><img src="/image/images/51.png" height="30px"></a>
 						</div>
+<<<<<<< HEAD
 					</div>
 					<div class="d"><b>좋아요 ${fn:length(image.likes)}개</b></div>
 					<div class="e">
@@ -381,6 +399,8 @@ input[type=button]{
 						<c:forEach var="like" items="${image.likes}">
 							<a href="#" class="like_list">${like.user.username}</a> 
 						</c:forEach>
+=======
+>>>>>>> 0cfe22f36370ad24d853e6968b05cd21a63acc5e
 					</div>
 					<div class="f">
 						<input class="g" type="text" placeholder="댓글 달기" /><a class="h"

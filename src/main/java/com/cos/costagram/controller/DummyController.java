@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+=======
+>>>>>>> 0cfe22f36370ad24d853e6968b05cd21a63acc5e
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,10 @@ import com.cos.costagram.model.Image;
 import com.cos.costagram.model.User;
 import com.cos.costagram.repository.FollowRepository;
 import com.cos.costagram.repository.ImageRepository;
+<<<<<<< HEAD
+=======
+import com.cos.costagram.repository.TagRepository;
+>>>>>>> 0cfe22f36370ad24d853e6968b05cd21a63acc5e
 import com.cos.costagram.repository.UserRepository;
 import com.cos.costagram.service.CustomUserDetails;
 
@@ -39,6 +46,12 @@ public class DummyController {
 	private ImageRepository imageRepository;
 	
 	@Autowired
+<<<<<<< HEAD
+=======
+	private TagRepository tagRepository;
+	
+	@Autowired
+>>>>>>> 0cfe22f36370ad24d853e6968b05cd21a63acc5e
 	private FollowRepository followRepository;
 	
 	@PostMapping("/create")
@@ -52,6 +65,7 @@ public class DummyController {
 	
 	@GetMapping("/images")
 	public @ResponseBody List<Image> image(@AuthenticationPrincipal CustomUserDetails userDetail, Model model) {
+<<<<<<< HEAD
 		
 		//1. User (One)
 		User user = userDetail.getUser();
@@ -63,10 +77,24 @@ public class DummyController {
 		//3. User:Follow:Image (List) 4. Follow:Image:Like(count) (One)
 		List<Image> imageList = new ArrayList<>();
 
+=======
+		System.out.println("Hello EveryOne");
+		//1. User (One)
+		User user = userDetail.getUser();
+		System.out.println("1");
+		System.out.println(user.getId());
+		//2. Follow:User (Many)
+		List<Follow> followList = followRepository.findByFromUserId(user.getId());
+		System.out.println("2");
+		//3. Follow:Image (Many) 4. Follow:Image:Like(count) (One)
+		List<Image> imageList = new ArrayList<>();
+		System.out.println("3");
+>>>>>>> 0cfe22f36370ad24d853e6968b05cd21a63acc5e
 		for(Follow f : followList) {
 			List<Image> list = imageRepository.findByUserId(f.getToUser().getId());
 			for(Image i : list) {
 				imageList.add(i);
+<<<<<<< HEAD
 			}	
 		}
 		
@@ -83,4 +111,16 @@ public class DummyController {
 		Page<Image> list = imageRepository.findAll(pageable);
 		return list;
 	}
+=======
+			}
+			
+		}
+		System.out.println("4");
+		model.addAttribute("imageList", imageList);
+		//System.out.println(userDetail.getUsername());
+		//System.out.println(userDetail.getUser().getBio());
+		//return "/images/image";
+		return imageList;
+	}
+>>>>>>> 0cfe22f36370ad24d853e6968b05cd21a63acc5e
 }
