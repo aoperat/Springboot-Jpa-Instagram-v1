@@ -365,12 +365,10 @@ input[type=button]{
 					<div class="small1-4">
 						<div class="small1-5">
 
-							<c:set var="likeId" value="null" />
 							<c:set var="like_check" value="false" />
 
 							<c:forEach var="like" items="${image.likes}">
 								<c:if test="${like.user.id eq user.id}">	
-									<c:set var="likeId" value="${like.id}" />
 									<c:set var="like_check" value="true" />
 								</c:if>
 							</c:forEach>
@@ -597,7 +595,7 @@ input[type=button]{
 		}
 		
 
-		function like(imageId, count, check){
+		function like(imageId, count, check){ //1  3  -1
 			if(check == -1){
 				fetch("/unlike/image/"+imageId,{
 					method:"POST"
@@ -636,7 +634,7 @@ input[type=button]{
 					let username = "${user.username}";
 					let el3 = document.querySelector(".like_people"+imageId);
 					let myDom = document.createElement("a");
-					myDom.className ="like_list like_people"+username+imageId;
+					myDom.className ="like_people like_people"+username+imageId;
 					myDom.innerHTML = "${user.username}";
 					el3.append(myDom);
 				

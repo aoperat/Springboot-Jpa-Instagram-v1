@@ -74,13 +74,18 @@ public class ImageContoller {
 			maxPage = imageList.size()/3; //2
 		}else {
 			maxPage= imageList.size()/3 + 1;
-			end = start+mod;
+			if(page == maxPage) {
+				end = start+mod;
+			}
 		}
+	
 		for(Image i : imageList) {
 			System.out.println(i.getId());
 		}
 		System.out.println("=================");
+		
 		Collections.sort(imageList);
+		
 		for(Image i : imageList) {
 			System.out.println(i.getId());
 		}

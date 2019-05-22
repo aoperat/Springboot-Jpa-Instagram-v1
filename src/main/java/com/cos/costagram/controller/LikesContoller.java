@@ -40,7 +40,7 @@ public class LikesContoller {
 	@PostMapping("/unlike/image/{id}")
 	public @ResponseBody String unlike(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetail) {
 		//User, Image
-		System.out.println("id : "+id);
+		System.out.println("imageId : "+id);
 		System.out.println("userId : "+userDetail.getUser().getId());
 		likesRepository.deleteLike(id, userDetail.getUser().getId());
 		return "unlike ok";
