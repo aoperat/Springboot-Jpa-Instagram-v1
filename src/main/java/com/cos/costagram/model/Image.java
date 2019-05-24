@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -57,6 +58,9 @@ public class Image implements Comparable<Image>{
 	private LocalDate createDate;
 	@CreationTimestamp
 	private LocalDate updateDate;
+	
+	@Transient
+	private int likeCount;
 	
 	@Override
 	public int compareTo(Image o) {

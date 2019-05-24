@@ -2,6 +2,8 @@ server:
   port: 8000                                                                                                                                                                                                                                                                        
   servlet:
     context-path: /
+  #tomcat:
+    #basedir: E:/costagram/costagram/public
 
 # 5.7 com.mysql.jdbc.Driver
 # 5.7 jdbc:mysql://localhost:3306/cos   
@@ -36,6 +38,7 @@ spring:
     multipart:
       enabled: true
       max-file-size: 1MB
+      #location: E:/costagram/costagram/public/image/
             
       
 

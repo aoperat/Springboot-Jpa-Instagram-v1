@@ -7,6 +7,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cos.costagram.model.Follow;
@@ -46,12 +48,14 @@ public class ImageContoller {
 	}
 	
 	@GetMapping("/images")
-	public String image(@AuthenticationPrincipal CustomUserDetails userDetail, Model model, @RequestParam(value="page", defaultValue = "1") int page) {
+	public String image(@AuthenticationPrincipal CustomUserDetails userDetail, Model model, @RequestParam(value="page", defaultValue = "1") int page, HttpServletRequest request) {
 		
 		//1. User (One)
 		User user = userDetail.getUser();
 		System.out.println("user.getId() : " +user.getId());
 		
+		//HttpSession session = request.getSession();
+		//session.setAttribute("user", user);
 		//2. User:Follow (List)
 		List<Follow> followList = followRepository.findByFromUserId(user.getId());
 
@@ -100,40 +104,54 @@ public class ImageContoller {
 		return "/images/image";
 	}
 	
-	@PostMapping("/image/upload")
-	public @ResponseBody Image imageUpload(
-			@AuthenticationPrincipal CustomUserDetails userDetail,
-			@RequestParam("file") MultipartFile file, 
-			String caption, 
-			String location, 
-			String tags) throws IOException {
-		Path filePath = Paths.get(UtilCos.getResourcePath()+file.getOriginalFilename());
-		
-		Files.write(filePath, file.getBytes());
-		User user = userDetail.getUser();
+@PostMapping("/images/uploadProc")
+public String imageUpload(
+		@AuthenticationPrincipal CustomUserDetails userDetail,
+		@RequestParam("file") MultipartFile file, 
+		String caption, 
+		String location, 
+		String tags) throws IOException {
+	
+	
+	UUID uuid = UUID.randomUUID();
+	String uuidFileName = uuid+"_"+file.getOriginalFilename();
+	Path filePath = Paths.get(UtilCos.getResourcePath()+uuidFileName);
+	System.out.println("filePath : "+filePath);
+	Files.write(filePath, file.getBytes());
+	User user = userDetail.getUser();
 
-		List<String> tagList = UtilCos.tagParser(tags);
-		
-		Image image = Image.builder()
-				.caption(caption)
-				.location(location)
-				.user(user)
-				.mimeType(file.getContentType())
-				.fileName(file.getOriginalFilename())
-				.filePath("/image/"+file.getOriginalFilename())
-				.build();
-		
-		imageRepository.save(image);
-		
-		for(String t : tagList) {
-			Tag tag = new Tag();
-			tag.setName(t);
-			tag.setImage(image);
-			tag.setUser(user);
-			tagRepository.save(tag);
-			image.getTags().add(tag); //DB에 영향을 미치지 않음.
-		}
-		
-		return image;
+	List<String> tagList = UtilCos.tagParser(tags);
+	
+	Image image = Image.builder()
+			.caption(caption)
+			.location(location)
+			.user(user)
+			.mimeType(file.getContentType())
+			.fileName(uuidFileName)
+			.filePath("/image/"+uuidFileName)
+			.build();
+	
+	imageRepository.save(image);
+	
+	for(String t : tagList) {
+		Tag tag = new Tag();
+		tag.setName(t);
+		tag.setImage(image);
+		tag.setUser(user);
+		tagRepository.save(tag);
+		image.getTags().add(tag); //DB에 영향을 미치지 않음.
+	}
+	
+	try {
+		Thread.sleep((long) 2000);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
+	return "redirect:/user/"+user.getId();
+}
+	
+	@GetMapping("/images/upload")
+	public String imageUpload() {
+		return "/images/upload";
 	}
 }

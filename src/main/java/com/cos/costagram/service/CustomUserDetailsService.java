@@ -1,5 +1,7 @@
 package com.cos.costagram.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 		if(user != null) {
 			userDetails = new CustomUserDetails();
 			userDetails.setUser(user);
+			
 		}else {
 			throw new UsernameNotFoundException("유저를 찾을 수 없습니다. "+username);
 		}

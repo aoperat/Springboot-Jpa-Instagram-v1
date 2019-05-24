@@ -15,14 +15,12 @@
 	margin: 0;
 	box-sizing: border-box;
 }
-
 .big {
 	display: grid;
 	/* background-color: aquamarine;  */
 	justify-content: center;
 	border-bottom: 1px solid #999;
 }
-
 .small {
 	display: grid;
 	grid-template-columns: auto 1fr 1fr;
@@ -31,21 +29,17 @@
 	grid-gap: 215px;
 	margin-top: 28px;
 }
-
 .a1 {
 	margin-top: 5px;
 }
-
 .a2 {
 	width: 200px;
 	height: 30px;
 }
-
 .small1 {
 	display: grid;
 	grid-template-columns: auto auto auto;
 }
-
 .line {
 	background-color: black;
 	height: 25px;
@@ -55,22 +49,18 @@
 	margin-right: 10px;
 	/* margin: -35px 43px;  */
 }
-
 .small3 {
 	display: grid;
 	grid-template-columns: auto auto auto;
 	margin-left: 55px;
 	margin-top: 5px;
 }
-
 .a3 {
 	margin-top: 10px;
 }
-
 .a5 {
 	margin-left: 10px;
 }
-
 .big1 {
 	display: grid;
 	/* background-color: aquamarine; */
@@ -80,63 +70,51 @@
 	margin-top: 50px;
 	/* background-color: beige; */
 }
-
 .image-list {
 	display: grid;
 }
-
 .small1-2 {
 	border: 1px solid #999;
 	background-color: white;
 	margin-bottom: 20px;
 }
-
 .small1-3 {
 	grid-column: 1/3 span;
 }
-
 .image-header {
 	display:grid;
 	grid-template-columns: auto auto;
 	justify-content: space-between;
 }
-
 .b1 {
 	margin-left: 15px;
 	margin-top: 10px;
 	display:grid;
 	grid-template-columns: auto auto;
 }
-
 .info {
 	padding-left: 10px;
 }
-
 .location {
 	padding-top:2px;
 	font-size:9px;
 }
-
 .b2 {
 	margin-top: 20px;
 }
-
 .b3 {
 	margin-top: 10px;
 	margin-left: -60px;
 }
-
 .b4 {
 	text-decoration: none;
 	margin-left: -520px;
 	color: black;
 	font-weight: bold;
 }
-
 .c {
 	grid-column: 1/3 span;
 }
-
 .small1-4 {
 	display: grid;
 	grid-template-columns: auto auto auto auto auto;
@@ -144,22 +122,18 @@
 	justify-content: space-between;
 	grid-column: 1/3 span;
 }
-
 .small1-5 {
 	display: grid;
 	grid-template-columns: auto auto auto;
 	grid-gap: 15px;
 	margin-left: 15px;
 }
-
 .c__4 {
 	margin-left: 150px;
 }
-
 .c__5 {
 	margin-left: 220px;
 }
-
 .d {
 	margin-left: 10px;
 	margin-top: 5px;
@@ -167,24 +141,20 @@
 	font-weight: bold;
 	grid-column: 1/3 span;
 }
-
 .e {
 	margin-left: 10px;
 	margin-top: 5px;
 	grid-column: 1/3 span;
 }
-
 .g {
 	width: 602px;
 	height: 40px;
 	position: relative;
 }
-
 .f {
 	display: grid;
 	grid-template-columns: auto auto;
 }
-
 .h {
 	position: absolute;
 	margin-left: 560px;
@@ -192,11 +162,9 @@
 	color: #003569;
 	text-decoration: none;
 }
-
 input:focus {
 	outline: none;
 }
-
 .small2-1 {
 	display: grid;
 	grid-template-columns: auto auto;
@@ -205,19 +173,16 @@ input:focus {
 	position: fixed;
 	justify-content: space-between;
 }
-
 .ax {
 	margin-top: 20px;
 	font-weight: bold;
 	margin-right: 150px;
 }
-
 .ax1 {
 	margin-top: 7px;
 	padding-right: 90px;
 	margin-left: 10px;
 }
-
 .small2-2 {
 	display: grid;
 	grid-template-columns: auto auto;
@@ -228,63 +193,50 @@ input:focus {
 	overflow-y: scroll;
 	height: 200px;
 }
-
 .ax2 {
 	margin-left: 65px;
 	margin-top: 10px;
 	font-weight: bold;
 	font-size: 13px;
 }
-
 .ax3 {
 	text-decoration: none;
 }
-
 .ax4 {
 	margin-left: 10px;
 }
-
 .bx1 {
 	margin-left: -80px;
 }
-
 .ax5 {
 	margin-top: 13px;
 	font-weight: bold;
 	font-size: 15px;
 }
-
 .bx2 {
 	text-decoration: none;
 	color: black;
 }
-
 .ax11 {
 	margin-top: 10px;
 	margin-left: 5px;
 }
-
 .ax12 {
 	margin-top: 15px;
 	grid-column: 1/2 span;
 	font-size: 12px;
 }
-
 .ax13 {
 	color: #999;
 	text-decoration: none;
 }
-
 .tag {
 	color:#003569;
 }
-
 .like_people {
 	text-decoration:none;
 	color:#003569;
 }
-
-
 input[type=button]{
     height: 31.3px;
     width: 600px;
@@ -293,12 +245,9 @@ input[type=button]{
     border: 0px;
     color: white;
 }
-
 .like_people {
 	display:inline-block;
 }
-
-
 </style>
 </head>
 
@@ -324,14 +273,14 @@ input[type=button]{
 			</div>
 
 			<div class="small3">
-				<a href="#"><img src="/image/images/41.png" height="30px"></a>
+				<a href="/explore"><img src="/image/images/41.png" height="30px"></a>
 	
 				<div class="a5">
 					<a href="#"><img src="/image/images/42.png" height="30px"></a>
 				</div>
 		
 				<div class="a5">
-					<a href="#"><img src="/image/images/43.png" height="30px"></a>
+					<a href="/user/${user.id}"><img src="/image/images/43.png" height="30px"></a>
 				</div>
 			</div>
 		</div>
@@ -443,7 +392,7 @@ input[type=button]{
 
 
 				<div class="small2-2">
-					<div class="ax1">스토리</div>
+					<div class="ax1">최근 게시물</div>
 					<div class="ax2">
 						<a class="ax3" href="#">모두 보기</a>
 					</div>
@@ -485,9 +434,9 @@ input[type=button]{
 					</div>
 
 				</div>
-
+				
 				<div class="small2-2">
-					<div class="ax11">회원님을 위한 추천</div>
+					<div class="ax1">최근 핫이슈</div>
 					<div class="ax2">
 						<a class="ax3" href="#">모두 보기</a>
 					</div>
@@ -529,6 +478,8 @@ input[type=button]{
 					</div>
 
 				</div>
+
+				
 				<div class="ax12">
 					<a class="ax13" href="#">instagram 정보.지원.홍보 센터.API,채용정보<br />
 						개인정보처리방침.약관.디렉터리.프로필.해시태그.<br /> 언어
@@ -594,7 +545,6 @@ input[type=button]{
 			}	
 		}
 		
-
 		function like(imageId, count, check){ //1  3  -1
 			if(check == -1){
 				fetch("/unlike/image/"+imageId,{
@@ -640,7 +590,6 @@ input[type=button]{
 				
 				});
 			}
-
 		}
 	</script>
 	

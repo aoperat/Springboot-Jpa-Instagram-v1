@@ -8,6 +8,9 @@ import com.cos.costagram.model.Follow;
 
 public interface FollowRepository extends JpaRepository<Follow, Integer>{
 	
-	//toUser를 뽑아야 함.
+	//팔로우 리스트
 	public List<Follow> findByFromUserId(int fromUser);
+	
+	//팔로워 리스트
+	public List<Follow> findByToUserId(int toUser);
 }
