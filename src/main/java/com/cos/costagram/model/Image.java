@@ -39,6 +39,8 @@ public class Image implements Comparable<Image>{
 	private String fileName;
 	private String filePath;
 	
+	private String adroidFilePath;
+	
 	@ManyToOne
 	@JoinColumn(name="userId")
 	@JsonIgnoreProperties({"password"})

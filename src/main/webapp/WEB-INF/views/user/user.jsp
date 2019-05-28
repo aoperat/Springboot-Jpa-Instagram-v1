@@ -586,12 +586,20 @@ input[type=submit] {
 			</div>
 			<div class="text">
 				<div class="rower">
-					<div class="name">${user.username}</div>
+					<div class="name">${imageUser.username}</div>
 					<c:choose>
-						<c:when test="${id ne user.id}">
+						<c:when test="${imageUser.id ne user.id}">
 							<div>
 								<!-- Follow 유무 체크해야함. -->
-								<button class="value3image2">팔로우</button>
+								<c:choose>
+									<c:when test="${followCheck eq 0}">
+										<button class="value3image2">팔로우</button>	
+									</c:when>
+									<c:otherwise>
+										<button class="value3image2">언팔로우</button>
+									</c:otherwise>
+								</c:choose>
+								
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -619,8 +627,8 @@ input[type=submit] {
 					</div>
 				</div>
 				<div class="rower2">
-					<div class="rower3">${user.name }↟</div>
-					${user.bio } <br /> <a href="${user.website }">${user.website }</a>
+					<div class="rower3">${imageUser.name }↟</div>
+					${imageUser.bio } <br /> <a href="${imageUser.website }">${imageUser.website }</a>
 				</div>
 			</div>
 		</div>

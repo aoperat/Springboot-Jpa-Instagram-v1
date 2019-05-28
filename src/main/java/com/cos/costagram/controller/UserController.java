@@ -67,13 +67,15 @@ public class UserController {
 	@GetMapping("/user/{id}")
 	public String userDetail(@PathVariable int id, Model model, @AuthenticationPrincipal CustomUserDetails userDetail) {
 		Optional<User> userO = userRepository.findById(userDetail.getUser().getId());
-		
+		System.out.println("userNamed:"+userDetail.getUsername());
 		//유저정보(username, name, bio, website)
 		User user = userO.get();
+		Optional<User> imageUserO = userRepository.findById(id);
+		User imageUser = imageUserO.get();
 		//이미지정보+좋아요카운트정보(User:Image), (User:Image.count())
 		List<Image> imageList = imageRepository.findByUserIdOrderByCreateDateDesc(id);
 		int imageCount = imageList.size();
-		for(Image i : imageList) {
+		for(Image i : imageList) { //1, 3
 			List<Likes> likeList = likesRepository.findByImageId(i.getId());
 			i.setLikeCount(likeList.size());
 		}
@@ -85,8 +87,12 @@ public class UserController {
 		List<Follow> followerList = followRepository.findByToUserId(id);
 		int followerCount = followerList.size();
 		
+		//팔로우 유무 체크
+		int followCheck = followRepository.findByFromUserIdAndToUserId(user.getId(), id);
+		
+		model.addAttribute("followCheck", followCheck);
 		model.addAttribute("user", user);
-		model.addAttribute("id", id);
+		model.addAttribute("imageUser", imageUser);
 		model.addAttribute("imageList", imageList);
 		model.addAttribute("imageCount", imageCount);
 		model.addAttribute("followCount", followCount);
