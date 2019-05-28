@@ -589,14 +589,14 @@ input[type=submit] {
 					<div class="name">${imageUser.username}</div>
 					<c:choose>
 						<c:when test="${imageUser.id ne user.id}">
-							<div>
+							<div class="followCheck">
 								<!-- Follow 유무 체크해야함. -->
 								<c:choose>
 									<c:when test="${followCheck eq 0}">
-										<button class="value3image2">팔로우</button>	
+										<button class="value3image2" onclick="follow(true)">팔로우</button>	
 									</c:when>
 									<c:otherwise>
-										<button class="value3image2">언팔로우</button>
+										<button class="value3image2" onclick="follow(false)">언팔로우</button>
 									</c:otherwise>
 								</c:choose>
 								
@@ -688,6 +688,44 @@ input[type=submit] {
 		</div>
 	</footer> </main>
 
+<script>
+	function follow(check){
+		//true -> follow하기
+		//false -> unFollow하기
+		if(check){
+			let url = '/follow/'+${imageUser.id};
+			fetch(url,{
+				method:'POST'
+			}).then(function(res){
+				return res.text();
+			}).then(function(result){
+				console.log(result);
+				if(result === "ok"){
+					let follow_el = document.querySelector('.followCheck');
+					follow_el.innerHTML="<button class='value3image2' onclick='follow(false)''>언팔로우</button>";
+				}
+			}).catch(function(error){
+				console.log(error);
+			});
+		}else{
+			let url = '/unFollow/'+${imageUser.id};
+			fetch(url,{
+				method:'POST'
+			}).then(function(res){
+				return res.text();
+			}).then(function(result){
+				console.log(result);
+				if(result === "ok"){
+					let follow_el = document.querySelector('.followCheck');
+					follow_el.innerHTML="<button class='value3image2' onclick='follow(true)''>팔로우</button>";
+				}
+			}).catch(function(error){
+				console.log(error);
+			});
+		}
+
+	}
+</script>
 </body>
 
 </html>

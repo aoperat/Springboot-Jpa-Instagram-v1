@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.costagram.model.Follow;
@@ -16,7 +15,6 @@ import com.cos.costagram.repository.UserRepository;
 import com.cos.costagram.service.CustomUserDetails;
 
 @RestController
-@RequestMapping("/follow")
 public class FollowContoller {
 	
 	@Autowired
@@ -25,10 +23,8 @@ public class FollowContoller {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@PostMapping("/{id}")
+	@PostMapping("/follow/{id}")
 	public String follow(@PathVariable Integer id, @AuthenticationPrincipal CustomUserDetails userDetail) {
-		System.out.println("누가 : "+userDetail.getUser().getId());
-		System.out.println("누구를 : "+id);
 		
 		Optional<User> optionalToUser = userRepository.findById(id);
 		User fromUser = userDetail.getUser();
@@ -39,6 +35,18 @@ public class FollowContoller {
 		follow.setToUser(toUser);
 		
 		followRepository.save(follow);
+		//세션에서 현재 유저정보 가져오기
+		
+		System.out.println("팔로우 완료");
+		return "ok";
+	}
+	
+	@PostMapping("/unFollow/{id}")
+	public String unFollow(@PathVariable Integer id, @AuthenticationPrincipal CustomUserDetails userDetail) {
+		Optional<User> optionalToUser = userRepository.findById(id);
+		User fromUser = userDetail.getUser();
+		User toUser = optionalToUser.get();
+		followRepository.deleteByFromUserIdAndToUserId(fromUser.getId(), toUser.getId());
 		//세션에서 현재 유저정보 가져오기
 		return "ok";
 	}
