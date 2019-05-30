@@ -9,6 +9,8 @@
 <link rel="shortcut icon" href="/image/user/favicon.ico">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
+<link href="/css/style.css" type="text/css" rel="stylesheet">
+<script src="/js/jquery-1.12.3.js" type="text/javascript"></script>
 <style>
 * {
 	margin: 0;
@@ -618,11 +620,15 @@ input[type=submit] {
 						<p>${imageCount}</p>
 					</div>
 					<div>
-						팔로워
+						<a href="#" class="popup1">
+							팔로워
+						</a>
 						<p>${followerCount }</p>
 					</div>
 					<div>
-						팔로우
+						<a href="#" class="popup2">
+							팔로우
+						</a>
 						<p>${followCount }</p>
 					</div>
 				</div>
@@ -688,40 +694,87 @@ input[type=submit] {
 		</div>
 	</footer> </main>
 
+<!-- Modal 시작 -->
+<div id="modal1">
+  
+  <div id="pop1">
+  <c:forEach var="item" items="${followerList}">
+    <div class="img"> <img src="/image/img.jpg" alt="최주호사진">
+      <p><a href="/user/${item.fromUser.id}">${item.fromUser.name }</a></p>
+      
+      	<c:choose>
+      		<c:when test="${item.matpal eq true}">
+      			<button class="following_btn">팔로잉</button>	
+      		</c:when>
+      		<c:otherwise>
+      			<button class="basic_btn">팔로우</button>
+      		</c:otherwise>
+      	</c:choose>
+      	
+      
+      <span>X</span> </div>
+    </c:forEach>
+    <div class="close">
+      <button type="button" id="btn-close">닫기</button>
+    </div>
+  </div>
+  
+</div>
+<!-- Modal 끝 --> 
+
+<!-- Modal 시작 -->
+<div id="modal2">
+  
+  <div id="pop2">
+  <c:forEach var="item" items="${followList}">
+    <div class="img"> <img src="/image/img.jpg" alt="최주호사진">
+      <p><a href="/user/${item.toUser.id}">${item.toUser.name }</a></p>
+      <button class="following_btn">팔로잉</button>
+      <span>X</span> </div>
+    </c:forEach>
+    <div class="close">
+      <button type="button" id="btn-close">닫기</button>
+    </div>
+  </div>
+  
+</div>
+<!-- Modal 끝 --> 
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
 <script>
+
 	function follow(check){
 		//true -> follow하기
 		//false -> unFollow하기
 		if(check){
 			let url = '/follow/'+${imageUser.id};
 			fetch(url,{
-				method:'POST'
+				method:"POST"
 			}).then(function(res){
+				console.log(res);
 				return res.text();
 			}).then(function(result){
-				console.log(result);
-				if(result === "ok"){
+				if(result === 'ok'){
 					let follow_el = document.querySelector('.followCheck');
-					follow_el.innerHTML="<button class='value3image2' onclick='follow(false)''>언팔로우</button>";
+					follow_el.innerHTML = "<button class='value3image2' onclick='follow(false)'>언팔로우</button>";
 				}
-			}).catch(function(error){
-				console.log(error);
-			});
+			}).catch();
 		}else{
 			let url = '/unFollow/'+${imageUser.id};
 			fetch(url,{
-				method:'POST'
+				method:"POST"
 			}).then(function(res){
+				console.log(res);
 				return res.text();
 			}).then(function(result){
-				console.log(result);
-				if(result === "ok"){
+				if(result === 'ok'){
 					let follow_el = document.querySelector('.followCheck');
-					follow_el.innerHTML="<button class='value3image2' onclick='follow(true)''>팔로우</button>";
+					follow_el.innerHTML = "<button class='value3image2' onclick='follow(true)'>팔로우</button>";
 				}
-			}).catch(function(error){
-				console.log(error);
-			});
+			}).catch();
 		}
 
 	}

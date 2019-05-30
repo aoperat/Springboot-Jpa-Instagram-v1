@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Document</title>
-<link href="css/style.css" type="text/css" rel="stylesheet">
-<script src="js/jquery-1.12.3.js" type="text/javascript"></script>
+<link href="/css/style.css" type="text/css" rel="stylesheet">
+<script src="/js/jquery-1.12.3.js" type="text/javascript"></script>
 <style>
 * {
 	padding: 0;
@@ -384,7 +384,7 @@ input[type=button]{
 			<div class="small2-1">
 
 				<div>
-					<a href="#" class="popup"><img src="/image/images/61.png" alt="x" width="50px" height="50px"/></a>
+					<a href="#" class="popup1"><img src="/image/images/61.png" alt="x" width="50px" height="50px"/></a>
 				</div>
 				<div class="ax">
 					<a class="bx2" href="#">${user.username}</a>
@@ -501,31 +501,11 @@ input[type=button]{
 
 	
 <!-- Modal 시작 -->
-<div id="modal">
-  <div id="pop">
-    <div class="img"> <img src="image/img.jpg" alt="최주호사진">
+<div id="modal1">
+  <div id="pop1">
+    <div class="img"> <img src="/image/img.jpg" alt="최주호사진">
       <p>최주호</p>
-      <button>팔로우</button>
-      <span>X</span> </div>
-    <div class="img"> <img src="image/img.jpg" alt="최주호사진">
-      <p>최주호</p>
-      <button>팔로우</button>
-      <span>X</span> </div>
-    <div class="img"> <img src="image/img.jpg" alt="최주호사진">
-      <p>최주호</p>
-      <button>팔로우</button>
-      <span>X</span> </div>
-    <div class="img"> <img src="image/img.jpg" alt="최주호사진">
-      <p>최주호</p>
-      <button>팔로우</button>
-      <span>X</span> </div>
-    <div class="img"> <img src="image/img.jpg" alt="최주호사진">
-      <p>최주호</p>
-      <button>팔로우</button>
-      <span>X</span> </div>
-    <div class="img"> <img src="image/img.jpg" alt="최주호사진">
-      <p>최주호</p>
-      <button>팔로우</button>
+      <button class="basic_btn">팔로우</button>
       <span>X</span> </div>
     <div class="close">
       <button type="button" id="btn-close">닫기</button>
@@ -534,7 +514,7 @@ input[type=button]{
 </div>
 <!-- Modal 끝 --> 
 <!-- wrap 끝 --> 
-<script src="js/script.js" type="text/javascript"></script>
+<script src="/js/script.js" type="text/javascript"></script>
 
 	<script>
 		function paging(){

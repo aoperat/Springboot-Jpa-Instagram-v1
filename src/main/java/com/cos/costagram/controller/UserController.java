@@ -1,9 +1,14 @@
 package com.cos.costagram.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.costagram.model.Follow;
 import com.cos.costagram.model.Image;
@@ -50,6 +56,13 @@ public class UserController {
 		return "/auth/login";
 	}
 	
+	@PostMapping("/app/login")
+	public @ResponseBody int appLogin() {
+		
+		
+		return -1;
+	}
+	
 	@GetMapping("/auth/join")
 	public String authJoin() {
 		return "/auth/join";
@@ -82,11 +95,36 @@ public class UserController {
 		
 		//팔로우정보(User:Follow:User.count())
 		List<Follow> followList = followRepository.findByFromUserId(id);
+		
+		//List<User> followUserList = 
+		
 		int followCount = followList.size();
 		//팔로워정보(User:Follower:User.count())
 		List<Follow> followerList = followRepository.findByToUserId(id);
-		int followerCount = followerList.size();
 		
+		List<Integer> followIdList = new ArrayList<Integer>();
+		for(Follow f : followList) {
+			followIdList.add(f.getToUser().getId());
+		}		
+		
+		List<Integer> followerIdList = new ArrayList<Integer>();
+		for(Follow f : followerList) {
+			followerIdList.add(f.getFromUser().getId());
+		}
+		
+		//기준은 follower를 기준으로 for문을 돌리고 follow했는지 체크
+		//그리고 체크된 애들은 matpal 속성에 set해주기
+		for(Follow f1 : followerList) {
+			for(Follow f2 : followList ) {
+				//맞팔 유무 확인
+				if(f1.getFromUser().getId() == f2.getToUser().getId()) {
+					f1.setMatpal(true);
+				}
+			}
+		}
+		
+		int followerCount = followerList.size();
+
 		//팔로우 유무 체크
 		int followCheck = followRepository.findByFromUserIdAndToUserId(user.getId(), id);
 		
@@ -97,11 +135,17 @@ public class UserController {
 		model.addAttribute("imageCount", imageCount);
 		model.addAttribute("followCount", followCount);
 		model.addAttribute("followerCount", followerCount);
+		model.addAttribute("followList", followList);
+		model.addAttribute("followerList", followerList);
 		return "/user/user";
 	}
 	
 	@GetMapping("/explore")
-	public String explore() {
+	public String explore(Model model, @AuthenticationPrincipal CustomUserDetails userDetail) {
+		int fromUser = userDetail.getUser().getId();
+		int userId = fromUser;
+		List<Image> exploreList = imageRepository.findByNotFollowImageList(fromUser, userId);
+		model.addAttribute("exploreList", exploreList);
 		return "/user/explore";
 	}
 }

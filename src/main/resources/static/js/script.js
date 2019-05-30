@@ -15,10 +15,18 @@ function slide(){
 
 
 // 모달창
-$(".popup").click(function (){
-	$("#modal").addClass("active");
+$(".popup1").click(function (){
+	$("#modal1").addClass("active");
 });
 $(".close button").click(function (){
-	$("#modal").removeClass("active");
+	$("#modal1").removeClass("active");
+	
+});
+
+$(".popup2").click(function (){
+	$("#modal2").addClass("active");
+});
+$(".close button").click(function (){
+	$("#modal2").removeClass("active");
 	
 });
