@@ -1,6 +1,7 @@
 package com.cos.costagram.model;
 
 import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,10 +30,10 @@ public class Follow {
 	
 	@ManyToOne
 	@JoinColumn(name="toUser")
-	private User toUser;
+	private User toUser;	
 	
 	@Transient
-	private Boolean doFollowing; //true(혼팔) false(맛팔)
+	private boolean matpal;
 	
 	@CreationTimestamp
 	private LocalDate createDate;

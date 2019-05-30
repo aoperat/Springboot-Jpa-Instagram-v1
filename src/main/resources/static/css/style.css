@@ -26,21 +26,32 @@ button {
 /* 콘텐츠 */
 
 
-.popup {
-	width: 40%;
-	height: 150px;
-	margin: 30% auto;
+.popup1 {
+	margin: 10% auto;
 	text-align: center;
 	cursor: pointer;
 }
-.popup h1 {
+
+.popup2 {
+	margin: 10% auto;
+	text-align: center;
+	cursor: pointer;
+}
+
+.popup1 h1 {
 	margin-top: 12%
 }
+
+.popup2 h1 {
+	margin-top: 12%
+}
+
 /* 모달 */
-#modal {
+#modal1 {
 	display: none;
 }
-#modal.active {
+
+#modal1.active {
 	display: block;
 	width: 100%;
 	height: 100%;
@@ -50,7 +61,25 @@ button {
 	background: rgba(0,0,0, 0.6);
 	z-index: 999;
 }
-#pop {
+
+/* 모달 */
+#modal2 {
+	display: none;
+}
+
+#modal2.active {
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background: rgba(0,0,0, 0.6);
+	z-index: 999;
+}
+
+
+#pop1 {
 	background: #FFF;
 	padding: 20px;
 	position: fixed;
@@ -62,6 +91,20 @@ button {
 	overflow-y: scroll;
 	height: 400px;
 }
+
+#pop2 {
+	background: #FFF;
+	padding: 20px;
+	position: fixed;
+	width: 400px;
+	left: 10%;
+	right: 10%;
+	margin: 0 auto;
+	top: 30%;
+	overflow-y: scroll;
+	height: 400px;
+}
+
 .img {
 	border-bottom: 1px dashed #999;
 	padding-top: 10px;
@@ -82,7 +125,8 @@ img {
 	padding-left: 30px;
 	width: 60%;
 }
-.img button {
+
+.basic_btn {
 	height: 30px;
 	width: 50px;
 	margin: 5px 0;
@@ -91,7 +135,21 @@ img {
 	color: white;
 	border-radius: 5px;
 	border: 0px;
+	font-weight: 600;
 }
+
+.following_btn {
+	height: 30px;
+	width: 50px;
+	margin: 5px 0;
+	clear: both;
+	background-color: transparent;
+	color: black;
+	border-radius: 5px;
+	border: 1px solid dbdbdb;
+	font-weight: 600;
+}
+
 .img span {
 	cursor: pointer;
 	padding: 0 10px;

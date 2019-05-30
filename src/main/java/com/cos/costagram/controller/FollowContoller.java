@@ -46,6 +46,7 @@ public class FollowContoller {
 		Optional<User> optionalToUser = userRepository.findById(id);
 		User fromUser = userDetail.getUser();
 		User toUser = optionalToUser.get();
+		
 		followRepository.deleteByFromUserIdAndToUserId(fromUser.getId(), toUser.getId());
 		//세션에서 현재 유저정보 가져오기
 		return "ok";

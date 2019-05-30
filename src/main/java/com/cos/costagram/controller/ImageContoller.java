@@ -63,6 +63,7 @@ public class ImageContoller {
 		// 3. User:Follow:Image (List) 4. Follow:Image:Like(count) (One)
 		List<Image> imageList = new ArrayList<>();
 
+		
 		for (Follow f : followList) {
 			List<Image> list = imageRepository.findByUserIdOrderByCreateDateDesc(f.getToUser().getId());
 			for (Image i : list) {
@@ -96,7 +97,11 @@ public class ImageContoller {
 		}
 		imageList = imageList.subList(start, end); // 0 3
 
-		// 5. Model에 담아주기
+		// 5. Follow한 userList 필요, userList에 follower유무 넣어주기 
+		
+		
+		// 6. Model에 담아주기
+		
 		model.addAttribute("user", user);
 		model.addAttribute("imageList", imageList);
 		model.addAttribute("page", page);
