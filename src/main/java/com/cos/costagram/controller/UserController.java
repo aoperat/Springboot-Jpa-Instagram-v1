@@ -143,8 +143,7 @@ public class UserController {
 	@GetMapping("/explore")
 	public String explore(Model model, @AuthenticationPrincipal CustomUserDetails userDetail) {
 		int fromUser = userDetail.getUser().getId();
-		int userId = fromUser;
-		List<Image> exploreList = imageRepository.findByNotFollowImageList(fromUser, userId);
+		List<Image> exploreList = imageRepository.findByNotFollowImageList(fromUser);
 		model.addAttribute("exploreList", exploreList);
 		return "/user/explore";
 	}

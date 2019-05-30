@@ -103,7 +103,7 @@ input[type=button] {
 }
 
 .foot {
-	margin: 400px;
+	margin: 100px;
 	display: grid;
 	grid-template-columns: auto auto auto auto auto auto auto auto auto auto
 		auto auto;
