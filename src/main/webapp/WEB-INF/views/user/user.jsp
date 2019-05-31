@@ -335,9 +335,9 @@ p {
 }
 
 .scorein {
-	font-size: 20px;
+	font-size: 40px;
 	font-weight: 600;
-	color: white;
+	color: red;
 	margin: 15px;
 	display: inline;
 }
