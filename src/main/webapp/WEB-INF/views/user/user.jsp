@@ -606,7 +606,7 @@ input[type=submit] {
 						</c:when>
 						<c:otherwise>
 							<div>
-								<button class="value3image2">프로필편집</button>
+								<button class="value3image2" onclick="location.href='/user/edit'">프로필편집</button>
 								<button class="value3image2"
 									onclick="location.href='/images/upload'">사진업로드</button>
 							</div>

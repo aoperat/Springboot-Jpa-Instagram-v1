@@ -1,5 +1,6 @@
 package com.cos.costagram.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,44 +31,43 @@ import com.cos.costagram.service.CustomUserDetails;
 
 @Controller
 public class UserController {
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private LikesRepository likesRepository;
-	
+
 	@Autowired
 	private ImageRepository imageRepository;
-	
+
 	@Autowired
 	private FollowRepository followRepository;
-	
+
 	@GetMapping("/")
 	public String home() {
 		return "/auth/join";
 	}
-	
+
 	@GetMapping("/auth/login")
 	public String authLogin() {
 		return "/auth/login";
 	}
-	
+
 	@PostMapping("/app/login")
 	public @ResponseBody int appLogin() {
-		
-		
+
 		return -1;
 	}
-	
+
 	@GetMapping("/auth/join")
 	public String authJoin() {
 		return "/auth/join";
 	}
-	
+
 	@PostMapping("/auth/create")
 	public String create(User user) {
 		String rawPassword = user.getPassword();
@@ -76,58 +76,58 @@ public class UserController {
 		userRepository.save(user);
 		return "/auth/login";
 	}
-	
+
 	@GetMapping("/user/{id}")
 	public String userDetail(@PathVariable int id, Model model, @AuthenticationPrincipal CustomUserDetails userDetail) {
 		Optional<User> userO = userRepository.findById(userDetail.getUser().getId());
-		System.out.println("userNamed:"+userDetail.getUsername());
-		//유저정보(username, name, bio, website)
+		System.out.println("userNamed:" + userDetail.getUsername());
+		// 유저정보(username, name, bio, website)
 		User user = userO.get();
 		Optional<User> imageUserO = userRepository.findById(id);
 		User imageUser = imageUserO.get();
-		//이미지정보+좋아요카운트정보(User:Image), (User:Image.count())
+		// 이미지정보+좋아요카운트정보(User:Image), (User:Image.count())
 		List<Image> imageList = imageRepository.findByUserIdOrderByCreateDateDesc(id);
 		int imageCount = imageList.size();
-		for(Image i : imageList) { //1, 3
+		for (Image i : imageList) { // 1, 3
 			List<Likes> likeList = likesRepository.findByImageId(i.getId());
 			i.setLikeCount(likeList.size());
 		}
-		
-		//팔로우정보(User:Follow:User.count())
+
+		// 팔로우정보(User:Follow:User.count())
 		List<Follow> followList = followRepository.findByFromUserId(id);
-		
-		//List<User> followUserList = 
-		
+
+		// List<User> followUserList =
+
 		int followCount = followList.size();
-		//팔로워정보(User:Follower:User.count())
+		// 팔로워정보(User:Follower:User.count())
 		List<Follow> followerList = followRepository.findByToUserId(id);
-		
+
 		List<Integer> followIdList = new ArrayList<Integer>();
-		for(Follow f : followList) {
+		for (Follow f : followList) {
 			followIdList.add(f.getToUser().getId());
-		}		
-		
+		}
+
 		List<Integer> followerIdList = new ArrayList<Integer>();
-		for(Follow f : followerList) {
+		for (Follow f : followerList) {
 			followerIdList.add(f.getFromUser().getId());
 		}
-		
-		//기준은 follower를 기준으로 for문을 돌리고 follow했는지 체크
-		//그리고 체크된 애들은 matpal 속성에 set해주기
-		for(Follow f1 : followerList) {
-			for(Follow f2 : followList ) {
-				//맞팔 유무 확인
-				if(f1.getFromUser().getId() == f2.getToUser().getId()) {
+
+		// 기준은 follower를 기준으로 for문을 돌리고 follow했는지 체크
+		// 그리고 체크된 애들은 matpal 속성에 set해주기
+		for (Follow f1 : followerList) {
+			for (Follow f2 : followList) {
+				// 맞팔 유무 확인
+				if (f1.getFromUser().getId() == f2.getToUser().getId()) {
 					f1.setMatpal(true);
 				}
 			}
 		}
-		
+
 		int followerCount = followerList.size();
 
-		//팔로우 유무 체크
+		// 팔로우 유무 체크
 		int followCheck = followRepository.findByFromUserIdAndToUserId(user.getId(), id);
-		
+
 		model.addAttribute("followCheck", followCheck);
 		model.addAttribute("user", user);
 		model.addAttribute("imageUser", imageUser);
@@ -139,7 +139,7 @@ public class UserController {
 		model.addAttribute("followerList", followerList);
 		return "/user/user";
 	}
-	
+
 	@GetMapping("/explore")
 	public String explore(Model model, @AuthenticationPrincipal CustomUserDetails userDetail) {
 		int fromUser = userDetail.getUser().getId();
@@ -147,4 +147,75 @@ public class UserController {
 		model.addAttribute("exploreList", exploreList);
 		return "/user/explore";
 	}
+
+	@GetMapping("/user/edit")
+	public String edit(@AuthenticationPrincipal CustomUserDetails userDetail, Model model) {
+		Optional<User> userO = userRepository.findById(userDetail.getUser().getId());
+		User user = userO.get();
+		model.addAttribute("user", user);
+		return "/user/edit";
+	}
+
+	@PostMapping("/user/editProc")
+	public String editProc(@AuthenticationPrincipal CustomUserDetails userDetail, User user, Model model) {
+		user.setUsername(userDetail.getUsername());
+		user.setPassword(userDetail.getPassword());
+		user.setCreateDate(userDetail.getUser().getCreateDate());
+		user.setUpdateDate(LocalDate.now());
+		user = userRepository.save(user);
+
+		return "redirect:/user/"+user.getId();
+	}
+
+	@GetMapping("/user/settings")
+	public String setting(@AuthenticationPrincipal CustomUserDetails userDetail, Model model) {
+		Optional<User> userO = userRepository.findById(userDetail.getUser().getId());
+		User user = userO.get();
+		model.addAttribute("user", user);
+		return "/user/settings";
+	}
+
+	@GetMapping("/user/change")
+	public String change(@AuthenticationPrincipal CustomUserDetails userDetail, Model model) {
+		Optional<User> userO = userRepository.findById(userDetail.getUser().getId());
+		User user = userO.get();
+		model.addAttribute("user", user);
+
+		return "/user/change";
+	}
+
+	@PostMapping("/user/changeProc")
+	public String changeProc(@AuthenticationPrincipal CustomUserDetails userDetail, String oldPassword,
+			String newPassword, Model model) {
+		Optional<User> userO = userRepository.findById(userDetail.getUser().getId());
+		User user = userO.get();
+		if (passwordEncoder.matches(oldPassword, user.getPassword())) {
+
+			newPassword = passwordEncoder.encode(newPassword);
+
+			user.setUpdateDate(LocalDate.now());
+			user.setPassword(newPassword);
+			userRepository.save(user);
+		}
+		return "redirect:/user/"+user.getId();
+	}
+
+	@GetMapping("/user/contactHistory")
+	public String contactHistory(@AuthenticationPrincipal CustomUserDetails userDetail) {
+
+		return "/user/contact_history";
+	}
+
+	@GetMapping("/user/manageAccess")
+	public String manageAccess(@AuthenticationPrincipal CustomUserDetails userDetail) {
+
+		return "/user/manage_access";
+	}
+
+	@GetMapping("/user/privacyAndSecurity")
+	public String privacyAndSecurity(@AuthenticationPrincipal CustomUserDetails userDetail) {
+
+		return "/user/privacy_and_security";
+	}
+
 }
