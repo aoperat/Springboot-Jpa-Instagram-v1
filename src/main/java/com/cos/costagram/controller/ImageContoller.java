@@ -107,7 +107,7 @@ public class ImageContoller {
 		
 		
 		// 6. Model에 담아주기
-		
+		model.addAttribute("followList", followList);
 		model.addAttribute("user", user);
 		model.addAttribute("imageList", imageList);
 		model.addAttribute("page", page);

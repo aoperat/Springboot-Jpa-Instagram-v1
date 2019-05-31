@@ -503,10 +503,13 @@ input[type=button]{
 <!-- Modal 시작 -->
 <div id="modal1">
   <div id="pop1">
-    <div class="img"> <img src="/image/img.jpg" alt="최주호사진">
-      <p>최주호</p>
-      <button class="basic_btn">팔로우</button>
-      <span>X</span> </div>
+    <c:forEach var="item" items="${followList}">
+	    <div class="img"> <img src="/image/img.jpg" alt="최주호사진">
+	      <p>${item.toUser.name}</p>
+	      <button class=following_btn>팔로잉</button>
+	      <span>X</span>
+	    </div>
+    </c:forEach>
     <div class="close">
       <button type="button" id="btn-close">닫기</button>
     </div>
