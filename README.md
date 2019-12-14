@@ -3,4 +3,8 @@
 ## 유튜브
 - <https://www.youtube.com/watch?v=8cU7ey5SJIg&t=8s>
 
-![blog](https://postfiles.pstatic.net/MjAxOTA1MzBfMjM0/MDAxNTU5MTk2NDc5MTM3.9JlFptCntJzg7wA9sJTeTiuZYQfp1R3QcrXiWC8zEpIg.KHainQiuuJWsZGYhuPvr8i193310t3F6FxkuaGtzlcog.PNG.codingspecialist/Screenshot_43.png?type=w773)
+## 블로그
+
+- <https://blog.naver.com/codingspecialist/221550964346>
+
+![blog](https://postfiles.pstatic.net/MjAxOTA1MjJfMjAz/MDAxNTU4NTE4MDU4MzQ5.5JkBZ_E0O-XyatLN1x-l592a4L7THTgM7vITeKhVOa8g.PliTsDC22mcNLlLWCD-PHMg09IPsrhwgNZdz7LPGSuQg.PNG.codingspecialist/Screenshot_15.png?type=w773)
